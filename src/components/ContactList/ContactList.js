@@ -1,8 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
+import { deleteContact } from '../../redux/phonebook/phonebook-actions';
 
 import ContactItem from '../ContactItem';
-import {deleteContact} from '../../redux/phonebook/phonebook-actions'
 import s from './ContactList.module.css';
 
 export default function ContactList() {
@@ -11,9 +10,8 @@ export default function ContactList() {
   const dispatch = useDispatch();
 
   const filteredContacts = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filterWord.toLowerCase()),
-    );
-
+    contact.name.toLowerCase().includes(filterWord.toLowerCase()),
+  );
 
   return (
     <ul className={s.contactList}>
@@ -28,13 +26,3 @@ export default function ContactList() {
     </ul>
   );
 }
-
-ContactList.propTypes = {
-  filteredContacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }),
-  ).isRequired,  
-};

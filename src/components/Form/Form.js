@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import shortid from 'shortid';
-import PropTypes from 'prop-types';
 
-import {saveContact} from '../../redux/phonebook/phonebook-actions'
+import { saveContact } from '../../redux/phonebook/phonebook-actions';
 
 import s from './Form.module.css';
 
@@ -13,7 +12,6 @@ export default function Form() {
 
   const contacts = useSelector(state => state.contacts.items);
   const dispatch = useDispatch();
- 
 
   const onSubmitAddContact = event => {
     event.preventDefault();
@@ -23,6 +21,7 @@ export default function Form() {
       name,
       number,
     };
+
     if (checkContactIdentity() === undefined) {
       dispatch(saveContact(newContact));
       reset();
@@ -37,10 +36,9 @@ export default function Form() {
   };
 
   const checkContactIdentity = () => {
-    const identity = contacts.find(
+    return contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase(),
     );
-    return identity;
   };
 
   const alertIdentity = name => {
@@ -87,13 +85,3 @@ export default function Form() {
     </form>
   );
 }
-
-Form.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-};
