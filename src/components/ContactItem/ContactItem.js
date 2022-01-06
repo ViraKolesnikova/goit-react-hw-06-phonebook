@@ -1,9 +1,11 @@
+import {  useDispatch } from 'react-redux';
+import { deleteContact } from '../../redux/phonebook/phonebook-actions';
 import PropTypes from 'prop-types';
 
 import s from './ContactItem.module.css';
 
-export default function ContactItem({ name, phoneNumber, onDeleteBtn }) {
-  
+export default function ContactItem({ id, name, phoneNumber }) {
+  const dispatch = useDispatch();
   return (
     <li className={s.contactListItem}>
       <p>
@@ -12,7 +14,7 @@ export default function ContactItem({ name, phoneNumber, onDeleteBtn }) {
       <button
         className={s.deleteContactBtn}
         type="button"
-        onClick={onDeleteBtn}
+        onClick={()=>dispatch(deleteContact(id))}
       >
         Delete
       </button>
@@ -23,5 +25,5 @@ export default function ContactItem({ name, phoneNumber, onDeleteBtn }) {
 ContactItem.propTypes = {
   name: PropTypes.string.isRequired,
   phoneNumber: PropTypes.string.isRequired,
-  onDeleteBtn: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
